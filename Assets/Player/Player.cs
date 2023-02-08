@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,47 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+
     [SerializeField]
     private float moveSpeed = 7f;
 
     [SerializeField]
     private GameInput gameInput;
 
+    [SerializeField]
+    private LayerMask countersLayer;
+
+    private Vector3 lastInteractDirection;
+    private ClearCounter selectedCounter;
+
+    public event EventHandler<ClearCounter> OnSelectedCounterChanged;
+
     public bool IsWalking { get; private set; }
 
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError($"Trying to make a additional {nameof(Player)}");
+            return;
+        }
+
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        gameInput.OnInteract += GameInput_OnInteract;
+    }
+
     private void Update()
+    {
+        HandleMovement();
+        HandleInteraction();
+    }
+
+    private void HandleMovement()
     {
         var input = gameInput.GetMovementVectorNomralized();
 
@@ -58,19 +91,60 @@ public class Player : MonoBehaviour
         );
 
         IsWalking = moveDirection != Vector3.zero;
+
+        bool CanMove(Vector3 direction, float distance)
+        {
+            var playerRadius = 0.7f;
+            var playerHeight = 2.0f;
+
+            return !Physics.CapsuleCast(
+                transform.position,
+                transform.position + (Vector3.up * playerHeight),
+                playerRadius,
+                direction,
+                distance
+            );
+        }
     }
 
-    private bool CanMove(Vector3 direction, float distance)
+    private void HandleInteraction()
     {
-        var playerRadius = 0.7f;
-        var playerHeight = 2.0f;
+        var input = gameInput.GetMovementVectorNomralized();
 
-        return !Physics.CapsuleCast(
-            transform.position,
-            transform.position + (Vector3.up * playerHeight),
-            playerRadius,
-            direction,
-            distance
-        );
+        var moveDirection = new Vector3(input.x, 0f, input.y);
+
+        if (moveDirection != Vector3.zero)
+        {
+            lastInteractDirection = moveDirection;
+        }
+
+        var interactDistance = 2.0f;
+        selectedCounter = null;
+
+        if (
+            Physics.Raycast(
+                transform.position,
+                lastInteractDirection,
+                out var raycastHit,
+                interactDistance,
+                countersLayer
+            )
+        )
+        {
+            if (raycastHit.transform.TryGetComponent(out ClearCounter counter))
+            {
+                selectedCounter = counter;
+            }
+        }
+
+        OnSelectedCounterChanged?.Invoke(this, selectedCounter);
+    }
+
+    private void GameInput_OnInteract(object sender, EventArgs e)
+    {
+        if (selectedCounter != null)
+        {
+            selectedCounter.Interact();
+        }
     }
 }
