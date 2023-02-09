@@ -21,9 +21,9 @@ public class Player : MonoBehaviour, IPlaceableHolder
     private Transform itemTarget;
 
     private Vector3 lastInteractDirection;
-    private ClearCounter selectedCounter;
+    private CounterBase selectedCounter;
 
-    public event EventHandler<ClearCounter> OnSelectedCounterChanged;
+    public event EventHandler<CounterBase> OnSelectedCounterChanged;
 
     public bool IsWalking { get; private set; }
 
@@ -138,7 +138,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
             )
         )
         {
-            if (raycastHit.transform.TryGetComponent(out ClearCounter counter))
+            if (raycastHit.transform.TryGetComponent(out CounterBase counter))
             {
                 selectedCounter = counter;
             }

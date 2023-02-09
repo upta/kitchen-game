@@ -5,18 +5,21 @@ using UnityEngine;
 public class SelectedCounter : MonoBehaviour
 {
     [SerializeField]
-    private ClearCounter counter;
+    private CounterBase counter;
 
     [SerializeField]
-    private GameObject visual;
+    private GameObject[] visuals;
 
     private void Start()
     {
         Player.Instance.OnSelectedCounterChanged += Instance_OnSelectedCounterChanged;
     }
 
-    private void Instance_OnSelectedCounterChanged(object sender, ClearCounter e)
+    private void Instance_OnSelectedCounterChanged(object sender, CounterBase e)
     {
-        visual.SetActive(e == counter);
+        foreach (var visual in visuals)
+        {
+            visual.SetActive(e == counter);
+        }
     }
 }
