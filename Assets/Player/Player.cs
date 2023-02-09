@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IPlaceableHolder
 {
     public static Player Instance { get; private set; }
 
@@ -17,12 +17,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask countersLayer;
 
+    [SerializeField]
+    private Transform itemTarget;
+
     private Vector3 lastInteractDirection;
     private ClearCounter selectedCounter;
 
     public event EventHandler<ClearCounter> OnSelectedCounterChanged;
 
     public bool IsWalking { get; private set; }
+
+    public Placeable Placeable { get; set; }
+
+    public Transform TargetTransform => itemTarget;
 
     private void Awake()
     {
@@ -144,7 +151,7 @@ public class Player : MonoBehaviour
     {
         if (selectedCounter != null)
         {
-            selectedCounter.Interact();
+            selectedCounter.Interact(this);
         }
     }
 }

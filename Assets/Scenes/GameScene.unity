@@ -172,6 +172,12 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8913298543110279949, guid: 99180899cef0223418c1ea3e4aedb55c,
         type: 3}
+      propertyPath: placeableSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 7704b701e4f5da84caba2c84d62264c6,
+        type: 2}
+    - target: {fileID: 8913298543110279949, guid: 99180899cef0223418c1ea3e4aedb55c,
+        type: 3}
       propertyPath: kitchenObject
       value: 
       objectReference: {fileID: 11400000, guid: 7704b701e4f5da84caba2c84d62264c6,
@@ -234,7 +240,7 @@ PrefabInstance:
     - target: {fileID: 9139924115499066164, guid: 99180899cef0223418c1ea3e4aedb55c,
         type: 3}
       propertyPath: m_Name
-      value: ClearCounter (1)
+      value: RightCounter
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -794,6 +800,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2021981245}
   m_SourcePrefab: {fileID: 100100000, guid: 1c5dda3c7cd3cf742afcade5419faeab, type: 3}
+--- !u!1 &668870642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 668870643}
+  m_Layer: 0
+  m_Name: ItemTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &668870643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668870642}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.35, z: 1.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1306583546}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &693279479
 GameObject:
   m_ObjectHideFlags: 3
@@ -1049,6 +1086,7 @@ MonoBehaviour:
   countersLayer:
     serializedVersion: 2
     m_Bits: 64
+  itemTarget: {fileID: 668870643}
 --- !u!4 &1306583546
 Transform:
   m_ObjectHideFlags: 0
@@ -1062,6 +1100,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2021981243}
+  - {fileID: 668870643}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1121,6 +1160,12 @@ PrefabInstance:
     - target: {fileID: 8913298543110279949, guid: 99180899cef0223418c1ea3e4aedb55c,
         type: 3}
       propertyPath: placeable
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f9df42c0a49723488089be003760e70,
+        type: 2}
+    - target: {fileID: 8913298543110279949, guid: 99180899cef0223418c1ea3e4aedb55c,
+        type: 3}
+      propertyPath: placeableSO
       value: 
       objectReference: {fileID: 11400000, guid: 6f9df42c0a49723488089be003760e70,
         type: 2}
@@ -1188,7 +1233,7 @@ PrefabInstance:
     - target: {fileID: 9139924115499066164, guid: 99180899cef0223418c1ea3e4aedb55c,
         type: 3}
       propertyPath: m_Name
-      value: ClearCounter
+      value: LeftCounter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

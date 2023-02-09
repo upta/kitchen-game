@@ -2,19 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour
+public class ClearCounter : MonoBehaviour, IPlaceableHolder
 {
     [SerializeField]
-    private PlaceableSO placeable;
+    private PlaceableSO placeableSO;
 
     [SerializeField]
     private Transform itemTarget;
 
-    public void Interact()
-    {
-        var instance = Instantiate(placeable.prefab, itemTarget);
-        instance.localPosition = Vector3.zero;
+    private Placeable placeable;
 
-        Debug.Log(instance.GetComponent<Placeable>().ScriptableObject.type);
+    public Placeable Placeable { get; set; }
+
+    public Transform TargetTransform => itemTarget;
+
+    public void Interact(IPlaceableHolder target)
+    {
+        if (placeable == null)
+        {
+            var instance = Instantiate(placeableSO.prefab, itemTarget);
+            instance.localPosition = Vector3.zero;
+
+            placeable = instance.GetComponent<Placeable>();
+            placeable.Holder = this;
+        }
+        else
+        {
+            Debug.Log(placeable.Holder);
+
+            placeable.Holder = target;
+        }
     }
 }
