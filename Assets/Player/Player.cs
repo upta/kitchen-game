@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour, IPlaceableHolder
 {
@@ -30,6 +27,8 @@ public class Player : MonoBehaviour, IPlaceableHolder
     public Placeable Placeable { get; set; }
 
     public Transform TargetTransform => itemTarget;
+
+    public bool HasPlaceable => Placeable != null;
 
     private void Awake()
     {

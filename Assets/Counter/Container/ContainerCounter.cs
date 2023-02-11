@@ -1,20 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class ContainerCounter : CounterBase
 {
     public event EventHandler OnInteract;
 
-    public override void Interact(IPlaceableHolder target)
+    public override void Interact(Player player)
     {
-        var instance = Instantiate(placeableSO.prefab);
-        instance.localPosition = Vector3.zero;
+        if (player.HasPlaceable)
+        {
+            return;
+        }
 
-        placeable = instance.GetComponent<Placeable>();
-        placeable.Holder = target;
+        var placeable = PlaceableManager.Instance.Create(placeableSO);
+        PlaceableManager.Instance.Claim(placeable, player);
 
         OnInteract?.Invoke(this, null);
     }
