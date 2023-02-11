@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: TomatoPlaceableSO
   m_EditorClassIdentifier: 
   prefab: {fileID: 14686887337016234, guid: a1e5d578b68f3134c87b7517458340aa, type: 3}
+  alternatePrefab: {fileID: 14686887337016234, guid: 62caea060b9548d41a4885e5825e466d,
+    type: 3}
   sprite: {fileID: 21300000, guid: 91e8fe3de9249fc44b7bdd8050062896, type: 3}
   type: Tomato

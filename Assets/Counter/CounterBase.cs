@@ -3,9 +3,6 @@
 public abstract class CounterBase : MonoBehaviour, IPlaceableHolder
 {
     [SerializeField]
-    protected PlaceableSO placeableSO;
-
-    [SerializeField]
     protected Transform itemTarget;
 
     public Placeable Placeable { get; set; }
@@ -15,4 +12,6 @@ public abstract class CounterBase : MonoBehaviour, IPlaceableHolder
     public bool HasPlaceable => Placeable != null;
 
     public abstract void Interact(Player player);
+
+    public virtual void InteractAlternate(Player player) { }
 }

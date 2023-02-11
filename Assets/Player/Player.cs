@@ -44,6 +44,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
     private void Start()
     {
         gameInput.OnInteract += GameInput_OnInteract;
+        gameInput.OnInteractAlternate += GameInput_OnInteractAlternate;
     }
 
     private void Update()
@@ -69,7 +70,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
         {
             var moveDirectionX = new Vector3(moveDirection.x, 0f, 0f).normalized;
 
-            canMove = CanMove(moveDirectionX, moveDistance);
+            canMove = moveDirection.x != 0.0f && CanMove(moveDirectionX, moveDistance);
 
             if (canMove)
             {
@@ -79,7 +80,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
             {
                 var moveDirectionZ = new Vector3(0f, 0f, moveDirection.z).normalized;
 
-                canMove = CanMove(moveDirectionZ, moveDistance);
+                canMove = moveDirection.z != 0.0f && CanMove(moveDirectionZ, moveDistance);
 
                 if (canMove)
                 {
@@ -151,6 +152,14 @@ public class Player : MonoBehaviour, IPlaceableHolder
         if (selectedCounter != null)
         {
             selectedCounter.Interact(this);
+        }
+    }
+
+    private void GameInput_OnInteractAlternate(object sender, EventArgs e)
+    {
+        if (selectedCounter != null)
+        {
+            selectedCounter.InteractAlternate(this);
         }
     }
 }

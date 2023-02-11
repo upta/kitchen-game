@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class ContainerCounter : CounterBase
 {
+    [SerializeField]
+    protected PlaceableSO placeableSO;
+
     public event EventHandler OnInteract;
 
     public override void Interact(Player player)
@@ -12,7 +15,7 @@ public class ContainerCounter : CounterBase
             return;
         }
 
-        var placeable = PlaceableManager.Instance.Create(placeableSO);
+        var placeable = PlaceableManager.Instance.Add(placeableSO.prefab);
         PlaceableManager.Instance.Claim(placeable, player);
 
         OnInteract?.Invoke(this, null);

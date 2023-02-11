@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.WSA;
 
 public class PlaceableManager : MonoBehaviour
@@ -18,18 +19,6 @@ public class PlaceableManager : MonoBehaviour
         Instance = this;
     }
 
-    public Placeable Create(PlaceableSO so)
-    {
-        var instance = Instantiate(so.prefab);
-        instance.localPosition = Vector3.zero;
-
-        var placeable = instance.GetComponent<Placeable>();
-
-        owners.Add(placeable, null);
-
-        return placeable;
-    }
-
     public void Claim(Placeable placeable, IPlaceableHolder newOwner)
     {
         var previousOwner = owners.GetValueOrDefault(placeable, null);
@@ -45,5 +34,23 @@ public class PlaceableManager : MonoBehaviour
         placeable.transform.parent = newOwner.TargetTransform;
         placeable.transform.localPosition = Vector3.zero;
         placeable.transform.localRotation = Quaternion.identity;
+    }
+
+    public Placeable Add(Transform prefab)
+    {
+        var instance = Instantiate(prefab);
+        instance.localPosition = Vector3.zero;
+
+        var placeable = instance.GetComponent<Placeable>();
+
+        owners.Add(placeable, null);
+
+        return placeable;
+    }
+
+    public void Remove(Placeable placeable)
+    {
+        owners.Remove(placeable);
+        Destroy(placeable.gameObject);
     }
 }
