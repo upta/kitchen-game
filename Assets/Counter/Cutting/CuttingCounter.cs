@@ -2,13 +2,13 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class CuttingCounter : CounterBase
+public class CuttingCounter : CounterBase, IHasProgress
 {
-    [SerializeField]
-    private CuttingRecipeSO[] cuttingRecipes;
-
     public event EventHandler<float> OnProgressNormalizedChanged;
     public event EventHandler OnCut;
+
+    [SerializeField]
+    private CuttingRecipeSO[] recipes;
 
     private int progress;
 
@@ -37,7 +37,7 @@ public class CuttingCounter : CounterBase
     {
         if (HasPlaceable)
         {
-            var recipe = cuttingRecipes.SingleOrDefault(a => a.input == Placeable.ScriptableObject);
+            var recipe = recipes.SingleOrDefault(a => a.input == Placeable.ScriptableObject);
 
             if (recipe != null)
             {

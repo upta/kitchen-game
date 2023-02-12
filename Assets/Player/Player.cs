@@ -55,7 +55,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
 
     private void HandleMovement()
     {
-        var input = gameInput.GetMovementVectorNomralized();
+        var input = gameInput.GetMovementVectorNormalized();
 
         var moveDirection = new Vector3(input.x, 0f, input.y);
         var moveDistance = moveSpeed * Time.deltaTime;
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
 
     private void HandleInteraction()
     {
-        var input = gameInput.GetMovementVectorNomralized();
+        var input = gameInput.GetMovementVectorNormalized();
 
         var moveDirection = new Vector3(input.x, 0f, input.y);
 

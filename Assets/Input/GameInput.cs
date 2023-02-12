@@ -18,10 +18,9 @@ public class GameInput : MonoBehaviour
 
         actions.Player.Interact.performed += Interact_performed;
         actions.Player.InteractAlternate.performed += InteractAlternate_performed;
-        ;
     }
 
-    public Vector2 GetMovementVectorNomralized()
+    public Vector2 GetMovementVectorNormalized()
     {
         var input = actions.Player.Move.ReadValue<Vector2>();
 
