@@ -7,8 +7,6 @@ public class PlaceableSO : ScriptableObject
 {
     public Transform prefab;
 
-    public Transform alternatePrefab;
-
     public Sprite sprite;
 
     public string type;
