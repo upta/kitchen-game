@@ -8,7 +8,27 @@ public class ClearCounter : CounterBase
     {
         if (HasPlaceable)
         {
-            if (!player.HasPlaceable)
+            if (player.HasPlaceable)
+            {
+                if (player.Placeable is PlatePlaceable playerPlate)
+                {
+                    if (playerPlate.TryAddIngredient(Placeable))
+                    {
+                        PlaceableManager.Instance.Remove(Placeable);
+                    }
+                }
+                else
+                {
+                    if (Placeable is PlatePlaceable counterPlate)
+                    {
+                        if (counterPlate.TryAddIngredient(player.Placeable))
+                        {
+                            PlaceableManager.Instance.Remove(player.Placeable);
+                        }
+                    }
+                }
+            }
+            else
             {
                 PlaceableManager.Instance.Claim(Placeable, player);
             }

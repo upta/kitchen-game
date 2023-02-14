@@ -15,35 +15,31 @@ public class StoveCounter : CounterBase, IHasProgress
 
     private void Update()
     {
-        if (HasPlaceable)
+        if (!HasPlaceable)
         {
-            timer += Time.deltaTime;
+            return;
+        }
 
-            if (activeRecipe != null)
+        timer += Time.deltaTime;
+
+        if (activeRecipe != null)
+        {
+            if (timer > activeRecipe.maxFryingSeconds)
             {
-                if (timer > activeRecipe.maxFryingSeconds)
-                {
-                    PlaceableManager.Instance.Remove(Placeable);
+                PlaceableManager.Instance.Remove(Placeable);
 
-                    var placeable = PlaceableManager.Instance.Add(activeRecipe.output.prefab);
+                var placeable = PlaceableManager.Instance.Add(activeRecipe.output.prefab);
 
-                    PlaceableManager.Instance.Claim(placeable, this);
+                PlaceableManager.Instance.Claim(placeable, this);
 
-                    OnProgressNormalizedChanged?.Invoke(
-                        this,
-                        timer / activeRecipe.maxFryingSeconds
-                    );
+                OnProgressNormalizedChanged?.Invoke(this, timer / activeRecipe.maxFryingSeconds);
 
-                    timer = 0;
-                    activeRecipe = FindRecipe(Placeable.ScriptableObject);
-                }
-                else
-                {
-                    OnProgressNormalizedChanged?.Invoke(
-                        this,
-                        timer / activeRecipe.maxFryingSeconds
-                    );
-                }
+                timer = 0;
+                activeRecipe = FindRecipe(Placeable.ScriptableObject);
+            }
+            else
+            {
+                OnProgressNormalizedChanged?.Invoke(this, timer / activeRecipe.maxFryingSeconds);
             }
         }
     }
@@ -52,7 +48,23 @@ public class StoveCounter : CounterBase, IHasProgress
     {
         if (HasPlaceable)
         {
-            if (!player.HasPlaceable)
+            if (player.HasPlaceable)
+            {
+                if (player.Placeable is PlatePlaceable plate)
+                {
+                    if (plate.TryAddIngredient(Placeable))
+                    {
+                        activeRecipe = null;
+                        PlaceableManager.Instance.Remove(Placeable);
+
+                        OnCooking?.Invoke(this, false);
+
+                        timer = 0.0f;
+                        OnProgressNormalizedChanged?.Invoke(this, 0.0f);
+                    }
+                }
+            }
+            else
             {
                 PlaceableManager.Instance.Claim(Placeable, player);
 

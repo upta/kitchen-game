@@ -16,14 +16,24 @@ public class CuttingCounter : CounterBase, IHasProgress
     {
         if (HasPlaceable)
         {
-            if (!player.HasPlaceable)
+            if (player.HasPlaceable)
+            {
+                if (player.Placeable is PlatePlaceable plate)
+                {
+                    if (plate.TryAddIngredient(Placeable))
+                    {
+                        PlaceableManager.Instance.Remove(Placeable);
+                    }
+                }
+            }
+            else
             {
                 PlaceableManager.Instance.Claim(Placeable, player);
             }
         }
         else
         {
-            if (player.HasPlaceable)
+            if (player.HasPlaceable && IsValidPlaceable(player.Placeable))
             {
                 PlaceableManager.Instance.Claim(player.Placeable, this);
             }
@@ -56,5 +66,10 @@ public class CuttingCounter : CounterBase, IHasProgress
                 }
             }
         }
+    }
+
+    public bool IsValidPlaceable(Placeable placeable)
+    {
+        return recipes.Any(a => a.input == placeable.ScriptableObject);
     }
 }
