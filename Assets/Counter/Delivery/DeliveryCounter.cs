@@ -8,6 +8,7 @@ public class DeliveryCounter : CounterBase
     {
         if (player.Placeable is PlatePlaceable plate)
         {
+            OrderManager.Instance.Deliver(plate);
             PlaceableManager.Instance.Remove(plate);
         }
     }

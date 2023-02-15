@@ -12,6 +12,7 @@ public class PlatePlaceable : Placeable
     private List<PlaceableSO> validIngredients;
 
     private readonly List<PlaceableSO> ingredients = new();
+    public IReadOnlyList<PlaceableSO> Ingredients => ingredients;
 
     public bool TryAddIngredient(Placeable placeable)
     {
