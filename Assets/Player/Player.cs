@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IPlaceableHolder
 {
+    public static event EventHandler<Player> OnPickUp;
+    public static event EventHandler<Player> OnDrop;
+
     public static Player Instance { get; private set; }
 
     [SerializeField]
@@ -24,7 +27,24 @@ public class Player : MonoBehaviour, IPlaceableHolder
 
     public bool IsWalking { get; private set; }
 
-    public Placeable Placeable { get; set; }
+    private Placeable placeable;
+    public Placeable Placeable
+    {
+        get => placeable;
+        set
+        {
+            placeable = value;
+
+            if (placeable != null)
+            {
+                OnPickUp?.Invoke(this, this);
+            }
+            else
+            {
+                OnDrop?.Invoke(this, this);
+            }
+        }
+    }
 
     public Transform TargetTransform => itemTarget;
 

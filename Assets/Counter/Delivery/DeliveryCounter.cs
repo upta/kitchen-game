@@ -1,14 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 public class DeliveryCounter : CounterBase
 {
+    public static event EventHandler<DeliveryCounter> OnDeliverySucceeded;
+    public static event EventHandler<DeliveryCounter> OnDeliveryFailed;
+
     public override void Interact(Player player)
     {
         if (player.Placeable is PlatePlaceable plate)
         {
-            OrderManager.Instance.Deliver(plate);
+            var success = OrderManager.Instance.Deliver(plate);
+
+            if (success)
+            {
+                OnDeliverySucceeded?.Invoke(this, this);
+            }
+            else
+            {
+                OnDeliveryFailed?.Invoke(this, this);
+            }
+
             PlaceableManager.Instance.Remove(plate);
         }
     }

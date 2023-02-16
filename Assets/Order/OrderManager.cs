@@ -17,8 +17,6 @@ public class OrderManager : MonoBehaviour
 
     private List<RecipeSO> activeRecipes = new();
 
-    //public IReadOnlyList<RecipeSO> ActiveRecipes => activeRecipes;
-
     private float timer;
 
     public bool Deliver(PlatePlaceable plate)
@@ -33,7 +31,6 @@ public class OrderManager : MonoBehaviour
         }
 
         activeRecipes.Remove(matchingRecipe);
-
         OnActiveRecipesUpdated?.Invoke(this, activeRecipes);
 
         return true;

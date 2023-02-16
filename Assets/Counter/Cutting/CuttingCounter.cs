@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class CuttingCounter : CounterBase, IHasProgress
 {
+    public static event EventHandler<CuttingCounter> OnCut;
+
     public event EventHandler<float> OnProgressNormalizedChanged;
-    public event EventHandler OnCut;
+    public event EventHandler OnCutting;
 
     [SerializeField]
     private CuttingRecipeSO[] recipes;
@@ -54,7 +56,8 @@ public class CuttingCounter : CounterBase, IHasProgress
                 progress++;
 
                 OnProgressNormalizedChanged?.Invoke(this, (float)progress / recipe.maxCutsRequired);
-                OnCut?.Invoke(this, null);
+                OnCutting?.Invoke(this, null);
+                OnCut?.Invoke(this, this);
 
                 if (progress >= recipe.maxCutsRequired)
                 {
