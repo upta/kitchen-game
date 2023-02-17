@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameInput : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
     private PlayerInputActions actions;
 
@@ -31,11 +31,21 @@ public class GameInput : MonoBehaviour
 
     private void Interact_performed(InputAction.CallbackContext obj)
     {
+        if (!GameStateManager.Instance.IsPlaying)
+        {
+            return;
+        }
+
         OnInteract?.Invoke(this, EventArgs.Empty);
     }
 
     private void InteractAlternate_performed(InputAction.CallbackContext obj)
     {
+        if (!GameStateManager.Instance.IsPlaying)
+        {
+            return;
+        }
+
         OnInteractAlternate?.Invoke(this, EventArgs.Empty);
     }
 }

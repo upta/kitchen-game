@@ -9,6 +9,8 @@ public class OrderManager : MonoBehaviour
 
     public event EventHandler<List<RecipeSO>> OnActiveRecipesUpdated;
 
+    public int SuccessfulOrders { get; private set; }
+
     private const float MAX_TIME = 4.0f;
     private const int MAX_ACTIVE_RECIPES = 4;
 
@@ -32,6 +34,8 @@ public class OrderManager : MonoBehaviour
 
         activeRecipes.Remove(matchingRecipe);
         OnActiveRecipesUpdated?.Invoke(this, activeRecipes);
+
+        SuccessfulOrders++;
 
         return true;
     }

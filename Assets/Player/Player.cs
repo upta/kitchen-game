@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
     private float moveSpeed = 7f;
 
     [SerializeField]
-    private GameInput gameInput;
+    private InputManager inputManager;
 
     [SerializeField]
     private LayerMask countersLayer;
@@ -63,8 +63,8 @@ public class Player : MonoBehaviour, IPlaceableHolder
 
     private void Start()
     {
-        gameInput.OnInteract += GameInput_OnInteract;
-        gameInput.OnInteractAlternate += GameInput_OnInteractAlternate;
+        inputManager.OnInteract += InputManager_OnInteract;
+        inputManager.OnInteractAlternate += InputManager_OnInteractAlternate;
     }
 
     private void Update()
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
 
     private void HandleMovement()
     {
-        var input = gameInput.GetMovementVectorNormalized();
+        var input = inputManager.GetMovementVectorNormalized();
 
         var moveDirection = new Vector3(input.x, 0f, input.y);
         var moveDistance = moveSpeed * Time.deltaTime;
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
 
     private void HandleInteraction()
     {
-        var input = gameInput.GetMovementVectorNormalized();
+        var input = inputManager.GetMovementVectorNormalized();
 
         var moveDirection = new Vector3(input.x, 0f, input.y);
 
@@ -167,7 +167,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
         OnSelectedCounterChanged?.Invoke(this, selectedCounter);
     }
 
-    private void GameInput_OnInteract(object sender, EventArgs e)
+    private void InputManager_OnInteract(object sender, EventArgs e)
     {
         if (selectedCounter != null)
         {
@@ -175,7 +175,7 @@ public class Player : MonoBehaviour, IPlaceableHolder
         }
     }
 
-    private void GameInput_OnInteractAlternate(object sender, EventArgs e)
+    private void InputManager_OnInteractAlternate(object sender, EventArgs e)
     {
         if (selectedCounter != null)
         {

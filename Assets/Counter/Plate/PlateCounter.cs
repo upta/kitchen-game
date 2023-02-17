@@ -8,7 +8,7 @@ public class PlateCounter : CounterBase
     public event EventHandler OnPlateAdded;
     public event EventHandler OnPlateRemoved;
 
-    private const float MAX_SECONDS = 1.0f;
+    private const float MAX_SECONDS = 4.0f;
     private const int MAX_PLATES = 4;
 
     [SerializeField]
