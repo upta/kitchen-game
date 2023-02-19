@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IPlaceableHolder
 {
-    public static event EventHandler<Player> OnPickUp;
-    public static event EventHandler<Player> OnDrop;
+    public event EventHandler<Player> OnPickUp;
+    public event EventHandler<Player> OnDrop;
 
     public static Player Instance { get; private set; }
 

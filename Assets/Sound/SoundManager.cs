@@ -1,10 +1,40 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager Instance { get; private set; }
+
+    private const string PREF_KEY = "SoundVolume";
+
     [SerializeField]
     private AudioClipRefs clips;
+
+    private int volume;
+    public int Volume
+    {
+        get => volume;
+        set
+        {
+            volume = value;
+
+            PlayerPrefs.SetInt(PREF_KEY, volume);
+            PlayerPrefs.Save();
+        }
+    }
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError($"Trying to create another instance of {nameof(SoundManager)}");
+        }
+
+        Instance = this;
+
+        Volume = PlayerPrefs.GetInt(PREF_KEY, 5);
+    }
 
     private void Start()
     {
@@ -23,12 +53,12 @@ public class SoundManager : MonoBehaviour
             PlaySound(clips.deliveryFailed, counter.transform.position);
         };
 
-        Player.OnPickUp += (_, player) =>
+        Player.Instance.OnPickUp += (_, player) =>
         {
             PlaySound(clips.objectPickup, player.transform.position);
         };
 
-        Player.OnDrop += (_, player) =>
+        Player.Instance.OnDrop += (_, player) =>
         {
             PlaySound(clips.objectDrop, player.transform.position);
         };
@@ -44,8 +74,10 @@ public class SoundManager : MonoBehaviour
         };
     }
 
-    private void PlaySound(AudioClip[] audioClips, Vector3 position, float volume = 1.0f)
+    private void PlaySound(AudioClip[] audioClips, Vector3 position, float volumeMultiplier = 1.0f)
     {
+        var volume = volumeMultiplier * ((Volume * .1f));
+
         AudioSource.PlayClipAtPoint(
             audioClips[UnityEngine.Random.Range(0, audioClips.Length)],
             position,

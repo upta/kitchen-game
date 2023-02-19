@@ -5,6 +5,12 @@ public class DeliveryCounter : CounterBase
     public static event EventHandler<DeliveryCounter> OnDeliverySucceeded;
     public static event EventHandler<DeliveryCounter> OnDeliveryFailed;
 
+    private void Awake()
+    {
+        OnDeliverySucceeded = null;
+        OnDeliveryFailed = null;
+    }
+
     public override void Interact(Player player)
     {
         if (player.Placeable is PlatePlaceable plate)

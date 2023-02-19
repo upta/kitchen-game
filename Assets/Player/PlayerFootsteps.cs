@@ -14,6 +14,7 @@ public class PlayerFootsteps : MonoBehaviour
 
     private void Awake()
     {
+        OnWalk = null;
         player = GetComponent<Player>();
     }
 

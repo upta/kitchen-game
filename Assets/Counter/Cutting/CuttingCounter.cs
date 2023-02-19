@@ -14,6 +14,11 @@ public class CuttingCounter : CounterBase, IHasProgress
 
     private int progress;
 
+    private void Awake()
+    {
+        OnCut = null;
+    }
+
     public override void Interact(Player player)
     {
         if (HasPlaceable)
