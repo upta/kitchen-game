@@ -23,6 +23,27 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField]
     private Button close;
 
+    [SerializeField]
+    private Button moveUpButton;
+
+    [SerializeField]
+    private Button moveDownButton;
+
+    [SerializeField]
+    private Button moveLeftButton;
+
+    [SerializeField]
+    private Button moveRightButton;
+
+    [SerializeField]
+    private Button interactButton;
+
+    [SerializeField]
+    private Button interactAlternateButton;
+
+    [SerializeField]
+    private Button pauseButton;
+
     public bool IsVisible
     {
         get => gameObject.activeInHierarchy;
