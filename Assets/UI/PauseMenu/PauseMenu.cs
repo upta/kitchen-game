@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Paused : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
     private Button resume;
@@ -20,6 +20,7 @@ public class Paused : MonoBehaviour
 
         PauseManager.Instance.OnPaused += PauseManager_OnPaused;
         PauseManager.Instance.OnUnpaused += PauseManager_OnUnpaused;
+        OptionsMenu.Instance.OnVisibilityChanged += OptionsMenu_OnVisibilityChanged;
 
         resume.onClick.AddListener(() =>
         {
@@ -47,6 +48,8 @@ public class Paused : MonoBehaviour
     private void PauseManager_OnPaused(object sender, System.EventArgs e)
     {
         gameObject.SetActive(true);
+
+        resume.Select();
     }
 
     private void PauseManager_OnUnpaused(object sender, System.EventArgs e)
@@ -54,5 +57,20 @@ public class Paused : MonoBehaviour
         gameObject.SetActive(false);
 
         OptionsMenu.Instance.IsVisible = false;
+    }
+
+    private void OptionsMenu_OnVisibilityChanged(object sender, bool isVisible)
+    {
+        if (!PauseManager.Instance.IsPaused)
+        {
+            return;
+        }
+
+        gameObject.SetActive(!isVisible);
+
+        if (!isVisible)
+        {
+            resume.Select();
+        }
     }
 }

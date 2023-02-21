@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,8 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     public static OptionsMenu Instance { get; private set; }
+
+    public event EventHandler<bool> OnVisibilityChanged;
 
     [SerializeField]
     private Button soundEffects;
@@ -23,31 +26,20 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField]
     private Button close;
 
-    [SerializeField]
-    private Button moveUpButton;
-
-    [SerializeField]
-    private Button moveDownButton;
-
-    [SerializeField]
-    private Button moveLeftButton;
-
-    [SerializeField]
-    private Button moveRightButton;
-
-    [SerializeField]
-    private Button interactButton;
-
-    [SerializeField]
-    private Button interactAlternateButton;
-
-    [SerializeField]
-    private Button pauseButton;
-
     public bool IsVisible
     {
         get => gameObject.activeInHierarchy;
-        set { gameObject.SetActive(value); }
+        set
+        {
+            gameObject.SetActive(value);
+
+            if (value)
+            {
+                soundEffects.Select();
+            }
+
+            OnVisibilityChanged?.Invoke(this, value);
+        }
     }
 
     private void Awake()

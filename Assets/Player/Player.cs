@@ -90,7 +90,9 @@ public class Player : MonoBehaviour, IPlaceableHolder
         {
             var moveDirectionX = new Vector3(moveDirection.x, 0f, 0f).normalized;
 
-            canMove = moveDirection.x != 0.0f && CanMove(moveDirectionX, moveDistance);
+            canMove =
+                (moveDirection.x < -0.5f || moveDirection.x > 0.5f)
+                && CanMove(moveDirectionX, moveDistance);
 
             if (canMove)
             {
@@ -100,7 +102,9 @@ public class Player : MonoBehaviour, IPlaceableHolder
             {
                 var moveDirectionZ = new Vector3(0f, 0f, moveDirection.z).normalized;
 
-                canMove = moveDirection.z != 0.0f && CanMove(moveDirectionZ, moveDistance);
+                canMove =
+                    (moveDirection.z < -0.5f || moveDirection.z > 0.5f)
+                    && CanMove(moveDirectionZ, moveDistance);
 
                 if (canMove)
                 {
