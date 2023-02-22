@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.WSA;
 
 public class PlaceableManager : MonoBehaviour
 {

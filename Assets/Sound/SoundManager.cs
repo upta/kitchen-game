@@ -1,7 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Rendering;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class SoundManager : MonoBehaviour
 {
