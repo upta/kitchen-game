@@ -8,4 +8,12 @@ public class FryingRecipeSO : ScriptableObject
     public PlaceableSO output;
 
     public float maxFryingSeconds;
+
+    public FryingType type;
+
+    public enum FryingType
+    {
+        Cooking,
+        Burning
+    }
 }

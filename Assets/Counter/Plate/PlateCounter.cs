@@ -35,7 +35,7 @@ public class PlateCounter : CounterBase
     {
         timer += Time.deltaTime;
 
-        if (timer >= MAX_SECONDS)
+        if (GameStateManager.Instance.IsPlaying && timer >= MAX_SECONDS)
         {
             timer = 0.0f;
 

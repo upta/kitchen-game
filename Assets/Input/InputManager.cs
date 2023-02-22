@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static System.Collections.Specialized.BitVector32;
 
 public class InputManager : MonoBehaviour
 {
@@ -52,6 +49,9 @@ public class InputManager : MonoBehaviour
             { Binding.Interact, new(actions.Player.Interact, 0) },
             { Binding.InteractAlternate, new(actions.Player.InteractAlternate, 0) },
             { Binding.Pause, new(actions.Player.Pause, 0) },
+            { Binding.GamepadInteract, new(actions.Player.Interact, 1) },
+            { Binding.GamepadInteractAlternate, new(actions.Player.InteractAlternate, 1) },
+            { Binding.GamepadPause, new(actions.Player.Pause, 1) },
         };
     }
 
@@ -105,12 +105,14 @@ public class InputManager : MonoBehaviour
 
     private void Interact_performed(InputAction.CallbackContext obj)
     {
-        if (!GameStateManager.Instance.IsPlaying)
+        if (
+            GameStateManager.Instance.State
+            is GameStateManager.GameState.WaitingToStart
+                or GameStateManager.GameState.Playing
+        )
         {
-            return;
+            OnInteract?.Invoke(this, EventArgs.Empty);
         }
-
-        OnInteract?.Invoke(this, EventArgs.Empty);
     }
 
     private void InteractAlternate_performed(InputAction.CallbackContext obj)
@@ -136,7 +138,10 @@ public class InputManager : MonoBehaviour
         MoveRight,
         Interact,
         InteractAlternate,
-        Pause
+        Pause,
+        GamepadInteract,
+        GamepadInteractAlternate,
+        GamepadPause
     }
 
     private class BindingAction

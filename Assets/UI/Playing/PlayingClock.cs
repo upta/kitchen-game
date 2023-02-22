@@ -13,13 +13,13 @@ public class PlayingClock : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void GameStateManager_OnStateChanged(object sender, GameStateManager.State state)
+    private void GameStateManager_OnStateChanged(object sender, GameStateManager.GameState state)
     {
-        gameObject.SetActive(state == GameStateManager.State.Playing);
+        gameObject.SetActive(state == GameStateManager.GameState.Playing);
     }
 
     private void Update()
     {
-        timerValue.fillAmount = GameStateManager.Instance.PlayingTimeNormalized;
+        timerValue.fillAmount = 1.0f - GameStateManager.Instance.PlayingTimeNormalized;
     }
 }

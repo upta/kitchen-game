@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class SoundManager : MonoBehaviour
 {
@@ -71,6 +72,16 @@ public class SoundManager : MonoBehaviour
         TrashCounter.OnTrashed += (_, counter) =>
         {
             PlaySound(clips.trash, counter.transform.position);
+        };
+
+        CountdownMenu.Instance.OnCount += (_, _) =>
+        {
+            PlaySound(clips.warning, Vector3.zero);
+        };
+
+        StoveSoundToggle.OnWarning += (_, counter) =>
+        {
+            PlaySound(clips.warning, counter.transform.position);
         };
     }
 

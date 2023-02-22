@@ -8,6 +8,8 @@ public class OrderManager : MonoBehaviour
     public static OrderManager Instance;
 
     public event EventHandler<List<RecipeSO>> OnActiveRecipesUpdated;
+    public event EventHandler OnOrderSucceeded;
+    public event EventHandler OnOrderFailed;
 
     public int SuccessfulOrders { get; private set; }
 
@@ -29,11 +31,14 @@ public class OrderManager : MonoBehaviour
 
         if (matchingRecipe == null)
         {
+            OnOrderFailed?.Invoke(this, null);
             return false;
         }
 
         activeRecipes.Remove(matchingRecipe);
         OnActiveRecipesUpdated?.Invoke(this, activeRecipes);
+
+        OnOrderSucceeded?.Invoke(this, null);
 
         SuccessfulOrders++;
 
@@ -54,7 +59,7 @@ public class OrderManager : MonoBehaviour
     {
         timer -= Time.deltaTime;
 
-        if (timer <= 0.0f)
+        if (GameStateManager.Instance.IsPlaying && timer <= 0.0f)
         {
             timer = MAX_TIME;
 

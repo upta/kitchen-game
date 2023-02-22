@@ -123,7 +123,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6ea747ce-d9b3-432e-a67a-68adee7d0147"",
-                    ""path"": ""<Joystick>/stick"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": ""StickDeadzone(min=0.5)"",
                     ""groups"": """",
@@ -134,7 +134,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ca9f944b-dbdb-41d2-892a-ac6cee3960a4"",
-                    ""path"": ""<HID::ࠁ 99260YCAC5TNX2>/hat"",
+                    ""path"": ""<Gamepad>/dpad"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -155,19 +155,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2a5d201b-224e-4262-87ec-493fe0feab60"",
+                    ""id"": ""9911e3db-a139-427b-b478-0b89f3816a02"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""92025c94-a875-496b-bc38-bfb2a37bb567"",
-                    ""path"": ""<HID::ࠁ 99260YCAC5TNX2>/button2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -188,19 +177,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5032d05d-417d-4987-8da6-a9889fe402fa"",
+                    ""id"": ""046fd494-92d2-4726-94fb-897b3fcac1c6"",
                     ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""InteractAlternate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1a15c95c-6828-45bb-8e6c-5b5289d7428d"",
-                    ""path"": ""<Joystick>/trigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -221,18 +199,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bb80c0cf-e3d1-4f96-88c4-167946e958ec"",
-                    ""path"": ""<HID::ࠁ 99260YCAC5TNX2>/button12"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""db2703cd-76d7-4d26-846b-b968be159ae8"",
+                    ""id"": ""4f630632-f4e5-4362-b0fd-b408b0956403"",
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",

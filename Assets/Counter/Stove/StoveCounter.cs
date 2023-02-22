@@ -7,6 +7,9 @@ public class StoveCounter : CounterBase, IHasProgress
     public event EventHandler<bool> OnCooking;
     public event EventHandler<float> OnProgressNormalizedChanged;
 
+    public bool IsBurning =>
+        activeRecipe is not null && activeRecipe.type is FryingRecipeSO.FryingType.Burning;
+
     [SerializeField]
     private FryingRecipeSO[] recipes;
 

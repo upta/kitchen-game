@@ -5,17 +5,16 @@ public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
 
-    public event EventHandler<State> OnStateChanged;
+    public event EventHandler<GameState> OnStateChanged;
 
-    private const float WAITING_DURATION = 1.0f;
     private const float COUNTDOWN_DURATION = 3.0f;
-    private const float PLAYING_DURATION = 10.0f;
+    private const float PLAYING_DURATION = 300.0f;
 
-    private State state = State.WaitingToStart;
+    public GameState State { get; set; } = GameState.WaitingToStart;
 
-    public float Timer { get; private set; } = WAITING_DURATION;
+    public float Timer { get; private set; }
 
-    public bool IsPlaying => state is State.Playing;
+    public bool IsPlaying => State is GameState.Playing;
 
     public float PlayingTimeNormalized => Timer / PLAYING_DURATION;
 
@@ -29,37 +28,38 @@ public class GameStateManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        InputManager.Instance.OnInteract += InputManager_OnInteract;
+    }
+
+    private void InputManager_OnInteract(object sender, EventArgs e)
+    {
+        if (State == GameState.WaitingToStart)
+        {
+            Timer = COUNTDOWN_DURATION;
+            State = GameState.CountdownToStart;
+
+            OnStateChanged?.Invoke(this, State);
+        }
+    }
+
     private void Update()
     {
-        var previousState = state;
+        var previousState = State;
 
-        if (state is State.WaitingToStart)
-        {
-            WaitingToStart();
-        }
-        else if (state is State.CountdownToStart)
+        if (State is GameState.CountdownToStart)
         {
             CountdownToStart();
         }
-        else if (state is State.Playing)
+        else if (State is GameState.Playing)
         {
             Playing();
         }
 
-        if (state != previousState)
+        if (State != previousState)
         {
-            OnStateChanged?.Invoke(this, state);
-        }
-    }
-
-    private void WaitingToStart()
-    {
-        Timer -= Time.deltaTime;
-
-        if (Timer < 0.0f)
-        {
-            state = State.CountdownToStart;
-            Timer = COUNTDOWN_DURATION;
+            OnStateChanged?.Invoke(this, State);
         }
     }
 
@@ -69,7 +69,7 @@ public class GameStateManager : MonoBehaviour
 
         if (Timer < 0.0f)
         {
-            state = State.Playing;
+            State = GameState.Playing;
             Timer = PLAYING_DURATION;
         }
     }
@@ -80,11 +80,11 @@ public class GameStateManager : MonoBehaviour
 
         if (Timer < 0.0f)
         {
-            state = State.GameOver;
+            State = GameState.GameOver;
         }
     }
 
-    public enum State
+    public enum GameState
     {
         WaitingToStart,
         CountdownToStart,

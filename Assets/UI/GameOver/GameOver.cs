@@ -15,11 +15,11 @@ public class GameOver : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void GameStateManager_OnStateChanged(object sender, GameStateManager.State state)
+    private void GameStateManager_OnStateChanged(object sender, GameStateManager.GameState state)
     {
-        gameObject.SetActive(state == GameStateManager.State.GameOver);
+        gameObject.SetActive(state == GameStateManager.GameState.GameOver);
 
-        if (state == GameStateManager.State.GameOver)
+        if (state == GameStateManager.GameState.GameOver)
         {
             receipeCount.text = OrderManager.Instance.SuccessfulOrders.ToString();
         }
